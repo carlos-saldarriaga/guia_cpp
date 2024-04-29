@@ -94,17 +94,16 @@ Puedes escribir y leer los datos de estructuras en un archivo de texto utilizand
 ```cpp
 #include <fstream>
 #include <string>
-#include <cstring>
 #include <iostream>
 
 const int MAX_PERSONAS = 100;
 
 struct Persona {
-    char nombre[50];
+    std::string nombre;
     int edad;
 };
 
-void escribirEstructuras(const Persona* personas, int cantidad, const std::string& nombreArchivo) {
+void escribirEstructuras(const Persona personas[], int cantidad, std::string nombreArchivo) {
     std::ofstream archivo(nombreArchivo);
     if (archivo.is_open()) {
         archivo << cantidad << std::endl;
@@ -115,7 +114,7 @@ void escribirEstructuras(const Persona* personas, int cantidad, const std::strin
     }
 }
 
-int leerEstructuras(Persona* personas, const std::string& nombreArchivo) {
+int leerEstructuras(Persona personas[], std::string nombreArchivo) {
     std::ifstream archivo(nombreArchivo);
     if (archivo.is_open()) {
         int cantidad;
@@ -131,7 +130,7 @@ int leerEstructuras(Persona* personas, const std::string& nombreArchivo) {
             if (pos != std::string::npos) {
                 nombre = linea.substr(0, pos);
                 edad = std::stoi(linea.substr(pos + 1));
-                std::strncpy(personas[contador].nombre, nombre.c_str(), sizeof(personas[contador].nombre));
+                personas[contador].nombre = nombre;
                 personas[contador].edad = edad;
                 contador++;
             }
@@ -145,11 +144,11 @@ int leerEstructuras(Persona* personas, const std::string& nombreArchivo) {
 int main() {
     Persona personas[MAX_PERSONAS];
     
-    std::strncpy(personas[0].nombre, "Juan", sizeof(personas[0].nombre));
+    personas[0].nombre = "Juan";
     personas[0].edad = 25;
-    std::strncpy(personas[1].nombre, "María", sizeof(personas[1].nombre));
+    personas[1].nombre = "María";
     personas[1].edad = 30;
-    std::strncpy(personas[2].nombre, "Pedro", sizeof(personas[2].nombre));
+    personas[2].nombre = "Pedro";
     personas[2].edad = 40;
     
     int cantidadPersonas = 3;
