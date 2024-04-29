@@ -166,13 +166,11 @@ int main() {
 }
 ```
 
-En este ejemplo, se define una estructura `Persona` con los campos `nombre` y `edad`. El campo `nombre` es un arreglo de caracteres con tamaño fijo.
+En este ejemplo, se define una estructura `Persona` con los campos `nombre` y `edad`. El campo `nombre` es de tipo `std::string` para facilitar la manipulación de cadenas de texto.
 
-Se define una constante `MAX_PERSONAS` para establecer el tamaño máximo del arreglo estático de `Persona`.
+La función `escribirEstructuras` toma un arreglo constante de `Persona`, la cantidad de personas y el nombre del archivo como parámetros. Esta función abre el archivo en modo escritura y escribe la cantidad de personas en la primera línea. Luego, itera sobre el arreglo y escribe los datos de cada `Persona` en una línea separada, utilizando una coma para separar el nombre y la edad.
 
-La función `escribirEstructuras` toma un puntero al arreglo de `Persona`, la cantidad de personas y el nombre del archivo como parámetros. Esta función abre el archivo en modo escritura y escribe la cantidad de personas en la primera línea. Luego, itera sobre el arreglo y escribe los datos de cada `Persona` en una línea separada, utilizando una coma para separar el nombre y la edad.
-
-La función `leerEstructuras` toma un puntero al arreglo de `Persona` y el nombre del archivo como parámetros. Esta función abre el archivo en modo lectura y lee la cantidad de personas de la primera línea. Luego, lee cada línea del archivo hasta alcanzar la cantidad de personas leídas. Utiliza la función `find` para encontrar la posición de la coma y luego utiliza `substr` para extraer el nombre y la edad. Convierte la edad de cadena a entero utilizando `stoi`. Luego, copia el nombre en el arreglo de caracteres de la estructura `Persona` utilizando `strncpy` y asigna la edad. Incrementa un contador para llevar la cuenta de las personas leídas. Finalmente, devuelve la cantidad de personas leídas.
+La función `leerEstructuras` toma un arreglo de `Persona` y el nombre del archivo como parámetros. Esta función abre el archivo en modo lectura y lee la cantidad de personas de la primera línea. Luego, lee cada línea del archivo hasta alcanzar la cantidad de personas leídas. Utiliza la función `find` para encontrar la posición de la coma y luego utiliza `substr` para extraer el nombre y la edad. Convierte la edad de cadena a entero utilizando `stoi`. Luego, asigna el nombre y la edad a los campos correspondientes de la estructura `Persona` en el arreglo. Incrementa un contador para llevar la cuenta de las personas leídas. Finalmente, devuelve la cantidad de personas leídas.
 
 En la función `main`, se crea un arreglo estático de `Persona` llamado `personas` con tamaño `MAX_PERSONAS`. Se asignan algunos datos de ejemplo a las primeras posiciones del arreglo.
 
@@ -183,6 +181,24 @@ Se crea otro arreglo estático de `Persona` llamado `personasLeidas` para almace
 Se llama a la función `leerEstructuras` para leer los datos del archivo y almacenarlos en `personasLeidas`. La función devuelve la cantidad de personas leídas.
 
 Finalmente, se itera sobre `personasLeidas` hasta la cantidad de personas leídas y se imprimen los datos de cada `Persona`.
+
+## Ejemplo de Archivo de Texto Generado
+
+El archivo de texto generado por el código anterior tendría el siguiente aspecto:
+
+```
+3
+Juan,25
+María,30
+Pedro,40
+```
+
+Explicación:
+- La primera línea del archivo contiene el número 3, que representa la cantidad de personas que se escribirán en el archivo.
+- Las siguientes líneas contienen la información de cada persona, con el formato "nombre,edad".
+  - La segunda línea contiene "Juan,25", que representa a la persona con nombre "Juan" y edad 25.
+  - La tercera línea contiene "María,30", que representa a la persona con nombre "María" y edad 30.
+  - La cuarta línea contiene "Pedro,40", que representa a la persona con nombre "Pedro" y edad 40.
 
 ## Manejo de Errores
 
@@ -206,4 +222,4 @@ int main() {
 }
 ```
 
-Esta guía cubre los conceptos básicos de lectura y escritura de archivos de texto en C++. Se han incluido ejemplos de lectura línea por línea utilizando `getline()`, lectura con salto de línea utilizando el operador `>>`, y escritura y lectura de estructuras utilizando un arreglo estático. En el último ejemplo, se muestra cómo leer la cantidad de elementos del arreglo desde la primera línea del archivo. Recuerda incluir la biblioteca `<fstream>`, abrir y cerrar los archivos correctamente, y manejar los errores adecuadamente en tus programas.
+Esta guía cubre los conceptos básicos de lectura y escritura de archivos de texto en C++. Se han incluido ejemplos de lectura línea por línea utilizando `getline()`, lectura con salto de línea utilizando el operador `>>`, y escritura y lectura de estructuras utilizando un arreglo estático. También se muestra cómo leer la cantidad de elementos del arreglo desde la primera línea del archivo. Recuerda incluir la biblioteca `<fstream>`, abrir y cerrar los archivos correctamente, y manejar los errores adecuadamente en tus programas.
