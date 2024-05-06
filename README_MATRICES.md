@@ -108,6 +108,123 @@ Matriz completa:
 7 8 9
 ```
 
+
+# Sistema de Reservas de Asientos de Cine
+
+Imagina que estás desarrollando un sistema de reservas de asientos para un cine. El cine tiene una sala con 5 filas y 10 asientos por fila. Puedes utilizar una matriz para representar la disposición de los asientos y realizar operaciones como reservar asientos, cancelar reservas y mostrar el estado actual de la sala.
+
+A continuación, te muestro un ejemplo de cómo puedes implementar este sistema utilizando matrices en C++:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+const int FILAS = 5;
+const int COLUMNAS = 10;
+
+// Función para mostrar el estado actual de la sala
+void mostrarSala(char sala[FILAS][COLUMNAS]) {
+    cout << "Estado actual de la sala:" << endl;
+    for (int i = 0; i < FILAS; i++) {
+        for (int j = 0; j < COLUMNAS; j++) {
+            cout << sala[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+
+// Función para reservar un asiento
+void reservarAsiento(char sala[FILAS][COLUMNAS], int fila, int columna) {
+    if (fila >= 0 && fila < FILAS && columna >= 0 && columna < COLUMNAS) {
+        if (sala[fila][columna] == 'O') {
+            sala[fila][columna] = 'X';
+            cout << "Asiento reservado correctamente." << endl;
+        } else {
+            cout << "El asiento ya está reservado." << endl;
+        }
+    } else {
+        cout << "Asiento inválido." << endl;
+    }
+}
+
+// Función para cancelar una reserva de asiento
+void cancelarReserva(char sala[FILAS][COLUMNAS], int fila, int columna) {
+    if (fila >= 0 && fila < FILAS && columna >= 0 && columna < COLUMNAS) {
+        if (sala[fila][columna] == 'X') {
+            sala[fila][columna] = 'O';
+            cout << "Reserva cancelada correctamente." << endl;
+        } else {
+            cout << "El asiento no está reservado." << endl;
+        }
+    } else {
+        cout << "Asiento inválido." << endl;
+    }
+}
+
+int main() {
+    char sala[FILAS][COLUMNAS];
+
+    // Inicializar la sala con asientos disponibles ('O')
+    for (int i = 0; i < FILAS; i++) {
+        for (int j = 0; j < COLUMNAS; j++) {
+            sala[i][j] = 'O';
+        }
+    }
+
+    // Ejemplo de uso del sistema de reservas
+    mostrarSala(sala);
+
+    reservarAsiento(sala, 2, 5);
+    reservarAsiento(sala, 1, 3);
+    reservarAsiento(sala, 4, 7);
+
+    mostrarSala(sala);
+
+    cancelarReserva(sala, 1, 3);
+
+    mostrarSala(sala);
+
+    return 0;
+}
+```
+
+En este ejemplo, utilizamos una matriz `sala` de caracteres para representar la disposición de los asientos en la sala de cine. Inicialmente, todos los asientos están disponibles y se representan con el carácter 'O'.
+
+Definimos funciones como `mostrarSala` para mostrar el estado actual de la sala, `reservarAsiento` para reservar un asiento específico y `cancelarReserva` para cancelar una reserva existente.
+
+En la función `main`, inicializamos la sala con asientos disponibles y luego realizamos algunas operaciones de ejemplo, como reservar asientos, mostrar el estado de la sala y cancelar una reserva.
+
+La salida del programa sería:
+
+```
+Estado actual de la sala:
+O O O O O O O O O O
+O O O O O O O O O O
+O O O O O O O O O O
+O O O O O O O O O O
+O O O O O O O O O O
+Asiento reservado correctamente.
+Asiento reservado correctamente.
+Asiento reservado correctamente.
+Estado actual de la sala:
+O O O O O O O O O O
+O O O X O O O O O O
+O O O O O X O O O O
+O O O O O O O O O O
+O O O O O O O X O O
+Reserva cancelada correctamente.
+Estado actual de la sala:
+O O O O O O O O O O
+O O O O O O O O O O
+O O O O O X O O O O
+O O O O O O O O O O
+O O O O O O O X O O
+```
+
+Este es solo un ejemplo básico de cómo se pueden utilizar matrices en un sistema de reservas de asientos de cine. Puedes extender este ejemplo agregando más funcionalidades, como la selección interactiva de asientos por parte del usuario, el cálculo de estadísticas de ocupación, etc.
+
+
+
 ## Conclusión
 
 Las matrices son una estructura de datos fundamental en C++ que nos permite almacenar y manipular conjuntos de valores relacionados. Podemos declarar matrices especificando el tipo de datos y el tamaño, inicializarlas con valores, acceder a elementos individuales utilizando índices de fila y columna, y recorrer la matriz utilizando bucles anidados.
