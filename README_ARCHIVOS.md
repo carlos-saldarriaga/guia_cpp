@@ -33,12 +33,94 @@ archivo << variable << endl;
 ```
 
 #### Leer de un Archivo
+Entiendo, aquí te muestro cómo modificar el ejemplo para usar un arreglo estático en lugar de un vector:
+
 ```cpp
-string linea;
-ifstream archivo("datos.txt");
-while (getline(archivo, linea)) {
-    cout << linea << endl;
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+
+const int MAX_PERSONAS = 100; // Tamaño máximo del arreglo
+
+// Estructura para almacenar los datos
+struct Persona {
+    string nombre;
+    int edad;
+    string ciudad;
+    float salario;
+};
+
+// Función para dividir una cadena por delimitador
+void split(const string& linea, char delimitador, string datos[], int numCampos) {
+    stringstream ss(linea);
+    string campo;
+    int i = 0;
+    
+    while (getline(ss, campo, delimitador) && i < numCampos) {
+        datos[i] = campo;
+        i++;
+    }
 }
+
+// Función para leer el archivo y guardar en arreglo estático
+int leerArchivo(const string& nombreArchivo, Persona personas[]) {
+    ifstream archivo(nombreArchivo);
+    string linea;
+    int numPersonas = 0;
+    
+    if (!archivo.is_open()) {
+        cout << "Error al abrir el archivo" << endl;
+        return 0;
+    }
+    
+    // Leer línea por línea
+    while (getline(archivo, linea) && numPersonas < MAX_PERSONAS) {
+        string datos[4]; // Array para almacenar los campos
+        split(linea, ',', datos, 4);
+        
+        // Guardar datos en la estructura
+        personas[numPersonas].nombre = datos[0];
+        personas[numPersonas].edad = stoi(datos[1]);
+        personas[numPersonas].ciudad = datos[2];
+        personas[numPersonas].salario = stof(datos[3]);
+        
+        numPersonas++;
+    }
+    
+    archivo.close();
+    return numPersonas;
+}
+
+int main() {
+    Persona personas[MAX_PERSONAS];
+    int totalPersonas;
+    
+    // Leer archivo
+    totalPersonas = leerArchivo("personas.txt", personas);
+    
+    // Mostrar datos leídos
+    cout << "Total de personas leidas: " << totalPersonas << endl;
+    cout << "\nDatos de las personas:\n" << endl;
+    
+    for (int i = 0; i < totalPersonas; i++) {
+        cout << "Persona " << i + 1 << ":" << endl;
+        cout << "Nombre: " << personas[i].nombre << endl;
+        cout << "Edad: " << personas[i].edad << endl;
+        cout << "Ciudad: " << personas[i].ciudad << endl;
+        cout << "Salario: " << personas[i].salario << endl;
+        cout << "-------------------" << endl;
+    }
+    
+    return 0;
+}
+```
+
+```
+Juan Perez,25,Madrid,2500.50
+Maria Garcia,30,Barcelona,3000.75
+Carlos Lopez,28,Valencia,2800.25
 ```
 
 ### Trabajando con Estructuras en Archivos de Texto
